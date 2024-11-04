@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfpqjf2e8xxrt"]
+
+[ext_resource type="Script" path="res://scripts/fight_ui.gd" id="1_l30xb"]
+[ext_resource type="PackedScene" uid="uid://cf6chu4jivjcq" path="res://scenes/player_fight_ui.tscn" id="2_2jny3"]
+[ext_resource type="PackedScene" uid="uid://bpeh3vecm60pb" path="res://scenes/enemy_ui.tscn" id="3_ccmcy"]
+
+[sub_resource type="Theme" id="Theme_dyc5k"]
+HBoxContainer/constants/separation = 8
+
+[node name="fight_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l30xb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 400.0
+offset_right = 544.0
+offset_bottom = 746.0
+scale = Vector2(0.7, 0.7)
+theme = SubResource("Theme_dyc5k")
+
+[node name="Player" parent="HBoxContainer" instance=ExtResource("2_2jny3")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 758.0
+offset_top = 400.0
+offset_right = 1294.0
+offset_bottom = 746.0
+scale = Vector2(0.7, 0.7)
+theme = SubResource("Theme_dyc5k")
+alignment = 2
+
+[node name="Enemy" parent="HBoxContainer2" instance=ExtResource("3_ccmcy")]
+layout_mode = 2
+
+[node name="HFlowContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 574.0
+offset_bottom = 184.0
+
+[node name="PanelContainer" type="PanelContainer" parent="HFlowContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Buttons" type="VBoxContainer" parent="HFlowContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Options" type="HBoxContainer" parent="HFlowContainer/PanelContainer/Buttons"]
+layout_mode = 2
+
+[node name="Fight" type="Button" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+text = "Fight"
+
+[node name="HSeparator" type="HSeparator" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+layout_mode = 2
+
+[node name="Item" type="Button" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+text = "Item"
+
+[node name="HSeparator2" type="HSeparator" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+layout_mode = 2
+
+[node name="Item2" type="Button" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+text = "Inspect"
+
+[node name="HSeparator3" type="HSeparator" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+layout_mode = 2
+
+[node name="Item3" type="Button" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+text = "Special"
+
+[node name="HSeparator4" type="HSeparator" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+layout_mode = 2
+
+[node name="Sub-Options" type="VBoxContainer" parent="HFlowContainer/PanelContainer/Buttons"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HFlowContainer/PanelContainer/Buttons/Sub-Options"]
+layout_mode = 2
+text = " ! ! Support ! !"

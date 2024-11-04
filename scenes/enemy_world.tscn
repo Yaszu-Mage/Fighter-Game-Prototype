@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxs1d3fe8po2d"]
+
+[ext_resource type="Script" path="res://scripts/enemy_world.gd" id="1_fyg1h"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mcaxd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7cne7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_smwf8"]
+radius = 3.80302
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pxdaw"]
+radius = 1.0
+
+[node name="enemy_world" type="CharacterBody3D"]
+script = ExtResource("1_fyg1h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_mcaxd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_7cne7")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_smwf8")
+
+[node name="sense" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sense"]
+shape = SubResource("SphereShape3D_pxdaw")
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="sense" to="." method="_on_sense_body_entered"]
+[connection signal="body_exited" from="sense" to="." method="_on_sense_body_exited"]

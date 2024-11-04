@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://dc531l3405y5t"]
+
+[ext_resource type="Script" path="res://scripts/test_world_fight.gd" id="1_3pup7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5nvkq"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_xn3pb"]
+sky_material = SubResource("ProceduralSkyMaterial_5nvkq")
+
+[sub_resource type="Environment" id="Environment_q6rfv"]
+background_mode = 2
+sky = SubResource("Sky_xn3pb")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a48ib"]
+size = Vector2(20, 20)
+
+[node name="background" type="Node3D"]
+script = ExtResource("1_3pup7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q6rfv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_a48ib")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05128, 2.45532)
+fov = 120.0
+
+[node name="player spawn pos" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24751, 0.764928, 0)
+
+[node name="player spawn pos2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84403, 0.764928, 0)
+
+[node name="player spawn pos3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32804, 0.765, 0)
+
+[node name="player spawn pos4" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.82734, 0.765, 0)
+
+[node name="enemy spawn pos" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33181, 0.764928, 0)
+
+[node name="enemy spawn pos2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73529, 0.764928, 0)
+
+[node name="enemy spawn pos3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25128, 0.765, 0)
+
+[node name="enemy spawn pos4" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.751978, 0.765, 0)
