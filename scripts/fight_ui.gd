@@ -1,15 +1,24 @@
 extends Control
 signal properties
+@onready var fight_interact_ui = $HFlowContainer
 var players = []
 var enemies = []
 @onready var prison_realm = $HBoxContainer
-# Turn is true when it is player's turn and false when it is enemies
-var turn = false
-
+var turn = true
+@onready var fight = $HFlowContainer/VboxContainer/PanelContainer/Buttons/Options/Fight
+@onready var item = $HFlowContainer/VboxContainer/PanelContainer/Buttons/Options/Item
+@onready var inspect = $HFlowContainer/VboxContainer/PanelContainer/Buttons/Options/Inspect
+@onready var special = $HFlowContainer/VboxContainer/PanelContainer/Buttons/Options/Special
+@onready var tag = $"HFlowContainer/VboxContainer/PanelContainer/Buttons/Sub-Options/Tag"
+@onready var scroll = $"HFlowContainer/Drop-Down/TabContainer/Fight/VBoxContainer"
+var current_focused = 0
 var player_scene_ref = []
 var enemy_scene_ref = []
 var player_ui_scene = preload("res://scenes/player_fight_ui.tscn")
 var player_example_idea = [10,10,false,1,0,10,10]
+# -1 not pressed, 0 fight pressed, 1 item pressed, 2 inspect pressed, 3 special pressed, 4 tag pressed
+var button_pressed = -1
+signal button_changed
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	await properties
@@ -33,8 +42,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if turn:
-		pass
-
+		fight_interact_ui.visible = true
+	else:
+		fight_interact_ui.visible = false
 func set_property(player : int,prop : String,value):
 	match prop:
 		"health":
@@ -45,4 +55,43 @@ func set_property(player : int,prop : String,value):
 			player_scene_ref[player].set_focus(value)
 
 func turn_cycle():
-	turn = true
+	if turn:
+		fight_interact_ui.visible = true
+		await button_changed
+		match button_pressed:
+			0:
+				pass
+		button_pressed = -1
+	else:
+		fight_interact_ui.visible = false
+
+
+func _on_fight_pressed():
+	button_pressed = 0
+	button_changed.emit()
+func _on_item_pressed():
+	button_pressed = 1
+	button_changed.emit()
+func _on_inspect_pressed():
+	button_pressed = 2
+	button_changed.emit()
+func _on_special_pressed():
+	button_pressed = 3
+	button_changed.emit()
+func _on_tag_pressed():
+	button_pressed = 4
+	button_changed.emit()
+
+func _input(event):
+	if event.is_action_pressed("ui_up"):
+		$"HFlowContainer/Drop-Down/TabContainer/Fight/VBoxContainer".set_deferred("scroll_vertical",scroll.scroll_vertical - 128)
+		current_focused =+ 1
+		current_focused = wrapi(current_focused,-1,current_focused)
+	if event.is_action_pressed("ui_down"):
+		$"HFlowContainer/Drop-Down/TabContainer/Fight/VBoxContainer".set_deferred("scroll_vertical",scroll.scroll_vertical + 128)
+		current_focused =- 1
+		current_focused = wrapi(current_focused,-1,current_focused)
+	if event.is_action_pressed("ui_right"):
+		$"HFlowContainer/Drop-Down/TabContainer".current_tab = $"HFlowContainer/Drop-Down/TabContainer".current_tab + 1
+	if event.is_action_pressed("ui_left"):
+		$"HFlowContainer/Drop-Down/TabContainer".current_tab = $"HFlowContainer/Drop-Down/TabContainer".current_tab - 1

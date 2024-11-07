@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfpqjf2e8xxrt"]
+[gd_scene load_steps=7 format=3 uid="uid://dfpqjf2e8xxrt"]
 
 [ext_resource type="Script" path="res://scripts/fight_ui.gd" id="1_l30xb"]
 [ext_resource type="PackedScene" uid="uid://cf6chu4jivjcq" path="res://scenes/player_fight_ui.tscn" id="2_2jny3"]
 [ext_resource type="PackedScene" uid="uid://bpeh3vecm60pb" path="res://scenes/enemy_ui.tscn" id="3_ccmcy"]
+[ext_resource type="Script" path="res://scripts/fight_logic.gd" id="4_x2wxb"]
+[ext_resource type="Texture2D" uid="uid://5qnjd5njqmhb" path="res://icon.svg" id="5_03cek"]
 
 [sub_resource type="Theme" id="Theme_dyc5k"]
 HBoxContainer/constants/separation = 8
@@ -46,55 +48,148 @@ layout_mode = 0
 offset_right = 574.0
 offset_bottom = 184.0
 
-[node name="PanelContainer" type="PanelContainer" parent="HFlowContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HFlowContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HFlowContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("4_x2wxb")
 
-[node name="Buttons" type="VBoxContainer" parent="HFlowContainer/PanelContainer"]
+[node name="Buttons" type="VBoxContainer" parent="HFlowContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="Options" type="HBoxContainer" parent="HFlowContainer/PanelContainer/Buttons"]
+[node name="Options" type="HBoxContainer" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons"]
 layout_mode = 2
 
-[node name="HSeparator5" type="HSeparator" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+[node name="HSeparator5" type="HSeparator" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options"]
 layout_mode = 2
 
-[node name="Fight" type="Button" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+[node name="Fight" type="Button" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 text = "Fight"
 
-[node name="HSeparator" type="HSeparator" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+[node name="HSeparator" type="HSeparator" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options"]
 layout_mode = 2
 
-[node name="Item" type="Button" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+[node name="Item" type="Button" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 text = "Item"
 
-[node name="HSeparator2" type="HSeparator" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+[node name="HSeparator2" type="HSeparator" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options"]
 layout_mode = 2
 
-[node name="Item2" type="Button" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+[node name="Inspect" type="Button" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 text = "Inspect"
 
-[node name="HSeparator3" type="HSeparator" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+[node name="HSeparator3" type="HSeparator" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options"]
 layout_mode = 2
 
-[node name="Item3" type="Button" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+[node name="Special" type="Button" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 text = "Special"
 
-[node name="HSeparator4" type="HSeparator" parent="HFlowContainer/PanelContainer/Buttons/Options"]
+[node name="HSeparator4" type="HSeparator" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options"]
 layout_mode = 2
 
-[node name="Sub-Options" type="VBoxContainer" parent="HFlowContainer/PanelContainer/Buttons"]
+[node name="Sub-Options" type="VBoxContainer" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="HFlowContainer/PanelContainer/Buttons/Sub-Options"]
+[node name="Tag" type="Button" parent="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Sub-Options"]
 layout_mode = 2
 text = "! ! Tag Team ! !"
+
+[node name="Drop-Down" type="PanelContainer" parent="HFlowContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="HFlowContainer/Drop-Down"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+current_tab = 0
+
+[node name="Fight" type="Control" parent="HFlowContainer/Drop-Down/TabContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="ScrollContainer" parent="HFlowContainer/Drop-Down/TabContainer/Fight"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 10.0
+offset_right = 144.0
+offset_bottom = 138.0
+scale = Vector2(0.9, 0.9)
+follow_focus = true
+scroll_vertical_custom_step = 128.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HFlowContainer/Drop-Down/TabContainer/Fight/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="HFlowContainer/Drop-Down/TabContainer/Fight/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_03cek")
+
+[node name="TextureButton2" type="TextureButton" parent="HFlowContainer/Drop-Down/TabContainer/Fight/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_03cek")
+
+[node name="TextureButton3" type="TextureButton" parent="HFlowContainer/Drop-Down/TabContainer/Fight/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_03cek")
+
+[node name="TextureButton4" type="TextureButton" parent="HFlowContainer/Drop-Down/TabContainer/Fight/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_03cek")
+
+[node name="Control2" type="Control" parent="HFlowContainer/Drop-Down/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Control3" type="Control" parent="HFlowContainer/Drop-Down/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Control4" type="Control" parent="HFlowContainer/Drop-Down/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="Control5" type="Control" parent="HFlowContainer/Drop-Down/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="Control6" type="Control" parent="HFlowContainer/Drop-Down/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 5
+
+[node name="Control7" type="Control" parent="HFlowContainer/Drop-Down/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 6
+
+[node name="Control8" type="Control" parent="HFlowContainer/Drop-Down/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 7
+
+[connection signal="pressed" from="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options/Fight" to="." method="_on_fight_pressed"]
+[connection signal="pressed" from="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options/Fight" to="HFlowContainer/VBoxContainer/PanelContainer" method="_on_fight_pressed"]
+[connection signal="pressed" from="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options/Item" to="." method="_on_item_pressed"]
+[connection signal="pressed" from="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options/Item" to="HFlowContainer/VBoxContainer/PanelContainer" method="_on_item_pressed"]
+[connection signal="pressed" from="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options/Inspect" to="." method="_on_inspect_pressed"]
+[connection signal="pressed" from="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options/Inspect" to="HFlowContainer/VBoxContainer/PanelContainer" method="_on_inspect_pressed"]
+[connection signal="pressed" from="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options/Special" to="." method="_on_special_pressed"]
+[connection signal="pressed" from="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Options/Special" to="HFlowContainer/VBoxContainer/PanelContainer" method="_on_special_pressed"]
+[connection signal="pressed" from="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Sub-Options/Tag" to="." method="_on_tag_pressed"]
+[connection signal="pressed" from="HFlowContainer/VBoxContainer/PanelContainer/Buttons/Sub-Options/Tag" to="HFlowContainer/VBoxContainer/PanelContainer" method="_on_tag_pressed"]
